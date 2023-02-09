@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import com.example.musicapp.databinding.ActivityFullscreenBinding
 
+
 @Suppress("DEPRECATION")
 class FullscreenActivity : AppCompatActivity() {
 
