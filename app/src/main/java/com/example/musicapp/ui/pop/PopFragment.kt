@@ -1,19 +1,33 @@
 package com.example.musicapp.ui.pop
 
+import android.content.ContentValues
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.musicapp.R
 import com.example.musicapp.databinding.FragmentPopBinding
-import com.example.musicapp.viewmodel.MusicAppViewModel
+import com.example.musicapp.model.MusicResponse
+import com.example.musicapp.model.Result
+import com.example.musicapp.ui.adapter.MusicAdapter
+import com.example.musicapp.utils.BaseFragment
+import com.example.musicapp.utils.UIState
 
-class PopFragment : Fragment() {
+class PopFragment : BaseFragment() {
 
     private val binding by lazy {
         FragmentPopBinding.inflate(layoutInflater)
+    }
+
+    private val musicAdapter by lazy {
+        MusicAdapter {
+            Log.d(ContentValues.TAG, "Item Clicked. Preview URL: $it")
+            musicViewModel.songUri = it
+            findNavController().navigate(R.id.action_home_fragment_to_player_fragment)
+        }
     }
 
     override fun onCreateView(
@@ -21,13 +35,31 @@ class PopFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val popViewModel =
-            ViewModelProvider(this).get(PopViewModel::class.java)
 
+        binding.rvPop.apply {
+            layoutManager = LinearLayoutManager(
+                requireContext(),
+                LinearLayoutManager.VERTICAL,
+                false
+            )
+             adapter = musicAdapter
+        }
+        Log.d(ContentValues.TAG, "onCreateView: ")
+        musicViewModel.pop.observe(viewLifecycleOwner) { state ->
+            when(state){
+                is UIState.LOADING -> {}
+                is UIState.SUCCESS<MusicResponse> -> {
+                    Log.d(ContentValues.TAG, "onCreateView: ${state.response}")
+                    musicAdapter.updateItems((state.response.results ?: emptyList()) as List<Result>)
+                }
+                is UIState.ERROR -> {
+                    state.error.localizedMessage?.let {
+                        showError(it) {
 
-        val textView: TextView = binding.textNotifications
-        popViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+                        }
+                    }
+                }
+            }
         }
         return binding.root
     }

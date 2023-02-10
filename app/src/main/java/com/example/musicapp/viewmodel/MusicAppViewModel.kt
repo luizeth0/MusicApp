@@ -30,6 +30,12 @@ class MusicAppViewModel @Inject constructor(
     private val _rock : MutableLiveData<UIState<MusicResponse>> = MutableLiveData(UIState.LOADING)
     val rock : MutableLiveData<UIState<MusicResponse>> get() = _rock
 
+    private val _classic : MutableLiveData<UIState<MusicResponse>> = MutableLiveData(UIState.LOADING)
+    val classic : MutableLiveData<UIState<MusicResponse>> get() = _classic
+
+    private val _pop : MutableLiveData<UIState<MusicResponse>> = MutableLiveData(UIState.LOADING)
+    val pop : MutableLiveData<UIState<MusicResponse>> get() = _pop
+
     init {
         getMusic()
     }
@@ -41,6 +47,8 @@ class MusicAppViewModel @Inject constructor(
                     musicRepository.getMusic(genre).collect() {
                         when (genre) {
                             "rock" -> _rock.postValue(it)
+                            "classic" -> _classic.postValue(it)
+                            "pop" -> _pop.postValue(it)
                         }
                     }
                 }

@@ -35,23 +35,13 @@ class RockFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        /*val rockViewModel =
-            ViewModelProvider(this).get(MusicAppViewModel::class.java)
-*/
-        /*_binding = FragmentRockBinding.inflate(inflater, container, false)
-        val root: View = binding.root*/
 
-        /*val textView: TextView = binding.textHome
-        rockViewModel.fragrock.observe(viewLifecycleOwner) {
-            textView.text = it
-        }*/
         binding.rvRock.apply {
             layoutManager = LinearLayoutManager(
                 requireContext(),
                 LinearLayoutManager.VERTICAL,
                 false
             )
-            setHasFixedSize(true) // this is to see if it doesn't matter what happens to the
             adapter = musicAdapter
         }
         Log.d(TAG, "onCreateView: ")
@@ -63,8 +53,10 @@ class RockFragment : BaseFragment() {
                     musicAdapter.updateItems((state.response.results ?: emptyList()) as List<Result>)
                 }
                 is UIState.ERROR -> {
-                    showError(state.error.localizedMessage) {
+                    state.error.localizedMessage?.let {
+                        showError(it) {
 
+                        }
                     }
                 }
             }
