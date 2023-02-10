@@ -10,9 +10,9 @@ interface MusicAppApi {
     @GET(PATH)
     suspend fun getMusic(
         @Query("term") term: String,
-        @Query("amp;media", encoded = true) media: String,
-        @Query("amp;entity", encoded = true) entity: String,
-        @Query("amp;limit", encoded = true) limit: String,
+        @Query("amp;media", encoded = true) media: String = "music",
+        @Query("amp;entity", encoded = true) entity: String = "song",
+        @Query("amp;limit", encoded = true) limit: String = "50",
     ) : Response<MusicResponse>
 
     companion object {

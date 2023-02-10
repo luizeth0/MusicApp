@@ -22,10 +22,11 @@ class MusicRepositoryImpl @Inject constructor(
         emit(UIState.LOADING)
 
         try {
-            val response = musicAppApi.getMusic(term,"music","song","50")
+            val response = musicAppApi.getMusic(term)
+            Log.d(TAG, "Hello1: $response")
             if (response.isSuccessful) {
                 response.body()?.let {
-                    Log.d(TAG, "Hello: $it")
+                    Log.d(TAG, "Hello2: $it")
                    emit(UIState.SUCCESS(it))
                 } ?: throw NullMusicResponse()
             } else {

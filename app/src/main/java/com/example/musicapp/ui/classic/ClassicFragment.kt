@@ -8,14 +8,13 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.musicapp.databinding.FragmentClassicBinding
+import com.example.musicapp.viewmodel.MusicAppViewModel
 
 class ClassicFragment : Fragment() {
 
-    private var _binding: FragmentClassicBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
+    private val binding by lazy {
+        FragmentClassicBinding.inflate(layoutInflater)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,18 +24,14 @@ class ClassicFragment : Fragment() {
         val classicViewModel =
             ViewModelProvider(this).get(ClassicViewModel::class.java)
 
-        _binding = FragmentClassicBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
         val textView: TextView = binding.textDashboard
         classicViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
-        return root
+        return binding.root
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
     }
 }

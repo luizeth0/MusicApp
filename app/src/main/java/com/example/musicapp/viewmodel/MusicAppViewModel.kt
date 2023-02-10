@@ -1,5 +1,6 @@
 package com.example.musicapp.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -17,8 +18,14 @@ class MusicAppViewModel @Inject constructor(
     private val musicRepository: MusicRepository
 ): ViewModel() {
 
-    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
+    private val _fragrock = MutableLiveData<String>().apply {
+        value = "This is rock Fragment"
+    }
+    val fragrock: LiveData<String> = _fragrock
 
+    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
+    private val genres = arrayListOf("rock","classic","pop")
+    var songUri : String = ""
 
     private val _rock : MutableLiveData<UIState<MusicResponse>> = MutableLiveData(UIState.LOADING)
     val rock : MutableLiveData<UIState<MusicResponse>> get() = _rock
@@ -28,8 +35,19 @@ class MusicAppViewModel @Inject constructor(
     }
 
     private fun getMusic() {
-
+        genres.forEach{ genre ->
+            run {
+                viewModelScope.launch(ioDispatcher) {
+                    musicRepository.getMusic(genre).collect() {
+                        when (genre) {
+                            "rock" -> _rock.postValue(it)
+                        }
+                    }
+                }
+            }
+        }
     }
+
 
 
 
