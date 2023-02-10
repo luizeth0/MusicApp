@@ -26,7 +26,7 @@ class PopFragment : BaseFragment() {
         MusicAdapter {
             Log.d(ContentValues.TAG, "Item Clicked. Preview URL: $it")
             musicViewModel.songUri = it
-            findNavController().navigate(R.id.action_home_fragment_to_player_fragment)
+            findNavController().navigate(R.id.action_navigation_pop_to_player_fragment)
         }
     }
 

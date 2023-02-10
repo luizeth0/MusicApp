@@ -18,14 +18,10 @@ class MusicAppViewModel @Inject constructor(
     private val musicRepository: MusicRepository
 ): ViewModel() {
 
-    private val _fragrock = MutableLiveData<String>().apply {
-        value = "This is rock Fragment"
-    }
-    val fragrock: LiveData<String> = _fragrock
+    var songUri = ""
 
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
     private val genres = arrayListOf("rock","classic","pop")
-    var songUri : String = ""
 
     private val _rock : MutableLiveData<UIState<MusicResponse>> = MutableLiveData(UIState.LOADING)
     val rock : MutableLiveData<UIState<MusicResponse>> get() = _rock

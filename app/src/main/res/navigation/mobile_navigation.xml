@@ -3,23 +3,44 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_rock">
 
     <fragment
-        android:id="@+id/navigation_home"
+        android:id="@+id/navigation_rock"
         android:name="com.example.musicapp.ui.rock.RockFragment"
         android:label="@string/title_rock"
-        tools:layout="@layout/fragment_rock" />
+        tools:layout="@layout/fragment_rock" >
+        <action
+            android:id="@+id/action_navigation_rock_to_player_fragment"
+            app:destination="@id/player_fragment" />
+    </fragment>
 
     <fragment
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_classic"
         android:name="com.example.musicapp.ui.classic.ClassicFragment"
         android:label="@string/title_classic"
-        tools:layout="@layout/fragment_classic" />
+        tools:layout="@layout/fragment_classic" >
+        <action
+            android:id="@+id/action_navigation_classic_to_player_fragment"
+            app:destination="@id/player_fragment" />
+    </fragment>
 
     <fragment
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_pop"
         android:name="com.example.musicapp.ui.pop.PopFragment"
         android:label="@string/title_pop"
-        tools:layout="@layout/fragment_pop" />
+        tools:layout="@layout/fragment_pop" >
+        <action
+            android:id="@+id/action_navigation_pop_to_player_fragment"
+            app:destination="@id/player_fragment" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/player_fragment"
+        android:name="com.example.musicapp.ui.PlayerFragment"
+        tools:layout="@layout/fragment_player"
+        android:label="PLAYER">
+
+    </fragment>
 </navigation>
