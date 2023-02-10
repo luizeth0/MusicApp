@@ -55,11 +55,11 @@ class PlayerFragment (): Fragment() {
             exoPlayer = context?.let { ExoPlayer.Builder(it).build() }
             exoPlayer?.playWhenReady = true
             binding.playerView.player = exoPlayer
-            val mediaItem =
-                MediaItem.fromUri(uriTrack)
+            val mediaItem = MediaItem.fromUri(uriTrack)
             exoPlayer?.setMediaItem(mediaItem)
             exoPlayer?.seekTo(playBackPosition)
             exoPlayer?.playWhenReady = playWhenReady
+          
 
             exoPlayer?.prepare()
         } catch (e: java.lang.Exception) {
