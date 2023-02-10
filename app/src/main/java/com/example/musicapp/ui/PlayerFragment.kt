@@ -59,7 +59,7 @@ class PlayerFragment (): Fragment() {
             exoPlayer?.setMediaItem(mediaItem)
             exoPlayer?.seekTo(playBackPosition)
             exoPlayer?.playWhenReady = playWhenReady
-          
+
 
             exoPlayer?.prepare()
         } catch (e: java.lang.Exception) {
