@@ -17,6 +17,7 @@ import com.example.musicapp.ui.adapter.MusicAdapter
 import com.example.musicapp.utils.BaseFragment
 import com.example.musicapp.utils.UIState
 
+
 class RockFragment : BaseFragment() {
 
     private val binding by lazy {
@@ -37,6 +38,19 @@ class RockFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
+        adapter()
+
+        // Set OnRefreshListener on SwipeRefreshLayout
+        binding.swipeRock.setOnRefreshListener {
+            binding.swipeRock.isRefreshing = false
+            adapter()
+        }
+
+        return binding.root
+    }
+
+    private fun adapter() {
 
         binding.rvRock.apply {
             layoutManager = LinearLayoutManager(
@@ -63,7 +77,7 @@ class RockFragment : BaseFragment() {
                 }
             }
         }
-        return binding.root
+
     }
 
     override fun onDestroyView() {

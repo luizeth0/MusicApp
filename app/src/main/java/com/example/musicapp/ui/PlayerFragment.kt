@@ -59,6 +59,7 @@ class PlayerFragment (): Fragment() {
             exoPlayer?.setMediaItem(mediaItem)
             exoPlayer?.seekTo(playBackPosition)
             exoPlayer?.playWhenReady = playWhenReady
+            exoPlayer?.mediaMetadata
 
 
             exoPlayer?.prepare()

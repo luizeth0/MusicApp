@@ -6,9 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.musicapp.R
@@ -18,7 +15,6 @@ import com.example.musicapp.model.Result
 import com.example.musicapp.ui.adapter.MusicAdapter
 import com.example.musicapp.utils.BaseFragment
 import com.example.musicapp.utils.UIState
-import com.example.musicapp.viewmodel.MusicAppViewModel
 
 class ClassicFragment : BaseFragment() {
 
@@ -39,6 +35,19 @@ class ClassicFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
+        adapter()
+
+        // Set OnRefreshListener on SwipeRefreshLayout
+        binding.swipeClassic.setOnRefreshListener {
+            binding.swipeClassic.isRefreshing = false
+            adapter()
+        }
+
+        return binding.root
+    }
+
+    private fun adapter() {
 
         binding.rvClassic.apply {
             layoutManager = LinearLayoutManager(
@@ -65,7 +74,7 @@ class ClassicFragment : BaseFragment() {
                 }
             }
         }
-        return binding.root
+
     }
 
     override fun onDestroyView() {

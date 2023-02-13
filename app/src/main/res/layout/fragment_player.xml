@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:argType="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -12,15 +12,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         argType:fastforward_increment="15000"
-        argType:resize_mode="fixed"
+        argType:resize_mode="auto"
         argType:rewind_increment="15000"
         argType:show_buffering="when_playing"
         argType:show_fastforward_button="true"
         argType:use_artwork="true"
         argType:use_controller="true"
         argType:use_sensor_rotation="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:show_shuffle_button="true"
         app:hide_on_touch="true"
         app:auto_show="true"
         app:keep_content_on_player_reset="true"/>
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

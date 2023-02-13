@@ -36,13 +36,25 @@ class PopFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
 
+        adapter()
+
+        // Set OnRefreshListener on SwipeRefreshLayout
+        binding.swipePop.setOnRefreshListener {
+            binding.swipePop.isRefreshing = false
+            adapter()
+        }
+
+        return binding.root
+    }
+
+    private fun adapter() {
         binding.rvPop.apply {
             layoutManager = LinearLayoutManager(
                 requireContext(),
                 LinearLayoutManager.VERTICAL,
                 false
             )
-             adapter = musicAdapter
+            adapter = musicAdapter
         }
         Log.d(ContentValues.TAG, "onCreateView: ")
         musicViewModel.pop.observe(viewLifecycleOwner) { state ->
@@ -61,7 +73,6 @@ class PopFragment : BaseFragment() {
                 }
             }
         }
-        return binding.root
     }
 
     override fun onDestroyView() {
